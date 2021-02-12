@@ -5,7 +5,7 @@ import { Flex } from "@chakra-ui/react";
 
 const Portfolio = () => {
 	return (
-		<Flex direction="row" h={400} bgColor="green.100">
+		<Flex direction="row" h={400} justifyContent="center">
 			<PortfolioChart />
 			<PortfolioAsset />
 		</Flex>

@@ -64,7 +64,7 @@ const AssetListItem: React.FC<AssetListItemProps> = ({
 					<Text mr={1}>
 						{dayPercentage >= 0 ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
 					</Text>
-					<Text>{`${dayPercentage}%`}</Text>
+					<Text>{`${numberWithCommas(Math.abs(dayPercentage))}%`}</Text>
 				</Flex>
 			</Td>
 

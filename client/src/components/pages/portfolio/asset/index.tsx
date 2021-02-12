@@ -7,7 +7,6 @@ import {
 	Tbody,
 	Tr,
 	Th,
-	Td,
 	useDisclosure,
 } from "@chakra-ui/react";
 import AssetListItem from "./assetListItem";

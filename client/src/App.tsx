@@ -1,8 +1,8 @@
 import React from "react";
 import Portfolio from "./components/pages/portfolio";
 import Cryptos from "./components/pages/crypros";
-// import TransactionModal from "./components/modules/modal/transactionModal";
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import TransactionModal from "./components/modules/modal/transactionModal";
+import { Flex, Heading } from "@chakra-ui/react";
 
 function App() {
 	return (
@@ -17,7 +17,7 @@ function App() {
 			</Flex>
 			<Portfolio />
 			<Cryptos />
-			{/* <TransactionModal /> */}
+			<TransactionModal isOpen={true} />
 		</Flex>
 	);
 }

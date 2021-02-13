@@ -75,7 +75,7 @@ const Asset = () => {
 					</Tbody>
 				</Table>
 			</Box>
-			<TransactionModal />
+			{/* <TransactionModal /> */}
 		</>
 	);
 };

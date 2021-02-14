@@ -1,35 +1,65 @@
-import React from "react";
+import React, { useRef, useState, useCallback, RefObject } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
-import CryptoListItem from "./cryptoListItem";
+// import CryptoListItem from "./cryptoListItem";
 import { numberWithCommas } from "../../../utils/utils";
+import { useGetCoinList } from "../../../utils/useGetCoinList";
 
 const Cryptos = () => {
 	const data = [
 		{
-			// market_cap_rank: 1,
 			id: "bitcoin",
-			cryproIcon:
+			market_cap_rank: 1,
+			image:
 				"https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
-			cryptoName: "Bitcoin",
-			cryptoSymbol: "BTC",
+			name: "Bitcoin",
+			symbol: "BTC",
 			price: 45652.81,
-			dayPercentage: 0.36,
-			weekPercentage: -0.08,
-			marketCap: 850338768910,
-			volumnUSD: 18624392936,
-			volumnCrypto: 1938593,
+			price_change_percentage_24h: -0.50012,
+			price_change_percentage_7d: 24.0139,
+			market_cap: 850338768910,
+			total_volume: 18624392936,
 		},
 	];
 
+	const [pageNumber, setPageNumber] = useState(1);
+	const { coins, loading, hasMore, error } = useGetCoinList(pageNumber);
+
+	const observer = useRef<IntersectionObserver | null>();
+	const lastCoinElementRef = useCallback(
+		(node) => {
+			if (loading) return;
+			if (observer.current) observer?.current?.disconnect();
+			observer.current = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting && hasMore) {
+					setPageNumber((prevPageNumber) => prevPageNumber + 1);
+				}
+			});
+
+			if (node) observer.current.observe(node);
+		},
+		[loading, hasMore]
+	);
+
+	//useRef<HTMLDivElement>();/
+
 	const renderTableRow = () => {
-		return data.map((coin, idx) => {
-			return <CryptoListItem key={coin.id} idx={idx + 1} {...coin} />;
+		return coins.map((coin, idx) => {
+			// return <CryptoListItem key={coin.id} idx={idx + 1} {...coin} />;
+			if (coins.length === idx + 1) {
+				return (
+					<div key={idx} ref={lastCoinElementRef}>
+						{coin.title}
+					</div>
+				);
+			}
+			return <div key={idx}>{coin.title}</div>;
 		});
 	};
 
 	return (
 		<Box>
-			<Table variant="simple">
+			{renderTableRow()}
+			{/* <Table variant="simple">
 				<Thead>
 					<Tr>
 						<Th>No</Th>
@@ -44,7 +74,7 @@ const Cryptos = () => {
 					</Tr>
 				</Thead>
 				<Tbody>{renderTableRow()}</Tbody>
-			</Table>
+			</Table> */}
 		</Box>
 	);
 };

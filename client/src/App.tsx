@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Portfolio from "./components/pages/portfolio";
 import Cryptos from "./components/pages/crypros";
 import TransactionModal from "./components/modules/modal/transactionModal";
 import { Flex, Heading } from "@chakra-ui/react";
+import { useGetCoinList } from "./utils/useGetCoinList";
 
 function App() {
 	return (
@@ -15,9 +16,9 @@ function App() {
 			<Flex height="5rem" alignItems="center" mb={5}>
 				<Heading as="h1">Cryptolio</Heading>
 			</Flex>
-			<Portfolio />
+			{/* <Portfolio /> */}
 			<Cryptos />
-			<TransactionModal isOpen={true} />
+			{/* <TransactionModal isOpen={true} /> */}
 		</Flex>
 	);
 }

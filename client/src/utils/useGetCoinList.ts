@@ -15,13 +15,13 @@ export const useGetCoinList = (pageNumber: number) => {
 		let cancel: () => void;
 		axios({
 			method: "GET",
-			url: "http://openlibrary.org/search.json",
-			params: { q: "coin", page: pageNumber },
+			url: "http://localhost:8000/api/coin/list",
+			params: { limit: 25, page: pageNumber },
 			cancelToken: new axios.CancelToken((c) => (cancel = c)),
 		})
 			.then((res) => {
-				console.log(res.data);
-				setCoins([...coins, ...res.data.docs]);
+				console.log(pageNumber, res.data);
+				setCoins([...coins, ...res.data.rows]);
 				setHasMore(res.data.docs.length > 0);
 				setLoading(false);
 			})

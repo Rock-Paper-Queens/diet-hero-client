@@ -25,6 +25,7 @@ const CryptoListItem: React.FC<CryptoListItemProps> = ({
 	total_volume,
 	ref,
 	onOpen,
+	chart_data,
 	// volumnCrypto,
 }) => {
 	return (
@@ -50,12 +51,12 @@ const CryptoListItem: React.FC<CryptoListItemProps> = ({
 				</Td>
 
 				{/*Price*/}
-				<Td>
+				<Td isNumeric>
 					<Text fontWeight="medium">{`$${numberWithCommas(price)}`}</Text>
 				</Td>
 
 				{/*24h*/}
-				<Td>
+				<Td isNumeric>
 					<Flex
 						dir="row"
 						alignItems="center"
@@ -76,7 +77,7 @@ const CryptoListItem: React.FC<CryptoListItemProps> = ({
 				</Td>
 
 				{/*7d*/}
-				<Td>
+				<Td isNumeric>
 					<Flex
 						dir="row"
 						alignItems="center"
@@ -97,12 +98,12 @@ const CryptoListItem: React.FC<CryptoListItemProps> = ({
 				</Td>
 
 				{/*market cap*/}
-				<Td>
+				<Td isNumeric>
 					<Text fontWeight="medium">{`$${numberWithCommas(market_cap)}`}</Text>
 				</Td>
 
 				{/*volumn*/}
-				<Td>
+				<Td isNumeric>
 					<Text fontWeight="medium">{`$${numberWithCommas(
 						total_volume
 					)}`}</Text>
@@ -116,6 +117,7 @@ const CryptoListItem: React.FC<CryptoListItemProps> = ({
 					<Box width="200px" height="50px">
 						<CrpytoLineChart
 							strokeColor={price_change_percentage_24h >= 0 ? "green" : "red"}
+							chartData={chart_data}
 						/>
 					</Box>
 				</Td>

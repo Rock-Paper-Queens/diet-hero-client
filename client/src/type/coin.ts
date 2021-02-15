@@ -9,5 +9,6 @@ export interface CoinType {
 	price_change_percentage_7d: number;
 	market_cap: number;
 	total_volume: number;
+	chart_data: string[];
 	// title: string;
 }

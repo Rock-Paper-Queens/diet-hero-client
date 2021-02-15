@@ -1,8 +1,16 @@
 import React, { useRef, useState, useCallback, RefObject } from "react";
-import { Box, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
-// import CryptoListItem from "./cryptoListItem";
-import { numberWithCommas } from "../../../utils/utils";
+import {
+	Box,
+	Table,
+	Thead,
+	Tbody,
+	Tr,
+	Th,
+	useDisclosure,
+} from "@chakra-ui/react";
+import CryptoListItem from "./cryptoListItem";
 import { useGetCoinList } from "../../../utils/useGetCoinList";
+import TransactionModal from "../../modules/modal/transactionModal";
 
 const Cryptos = () => {
 	const data = [
@@ -23,6 +31,16 @@ const Cryptos = () => {
 
 	const [pageNumber, setPageNumber] = useState(1);
 	const { coins, loading, hasMore, error } = useGetCoinList(pageNumber);
+	const [isOpen, setIsOpen] = useState(false);
+
+	const onOpen = () => {
+		setIsOpen(true);
+	};
+
+	const onClose = () => {
+		setIsOpen(false);
+	};
+	// const { isOpen, onOpen } = useDisclosure();
 
 	const observer = useRef<IntersectionObserver | null>();
 	const lastCoinElementRef = useCallback(
@@ -43,39 +61,54 @@ const Cryptos = () => {
 	//useRef<HTMLDivElement>();/
 
 	const renderTableRow = () => {
-		return coins.map((coin, idx) => {
-			// return <CryptoListItem key={coin.id} idx={idx + 1} {...coin} />;
+		return data.map((coin, idx) => {
 			if (coins.length === idx + 1) {
 				return (
-					<div key={idx} ref={lastCoinElementRef}>
-						{coin.title}
-					</div>
+					<CryptoListItem
+						key={coin.id}
+						ref={lastCoinElementRef}
+						idx={idx + 1}
+						onOpen={onOpen}
+						{...coin}
+					/>
 				);
 			}
-			return <div key={idx}>{coin.title}</div>;
+			return (
+				<CryptoListItem key={coin.id} idx={idx + 1} onOpen={onOpen} {...coin} />
+			);
+			// if (coins.length === idx + 1) {
+			// 	return (
+			// 		<div key={idx} ref={lastCoinElementRef}>
+			// 			{coin.title}
+			// 		</div>
+			// 	);
+			// }
+			// return <div key={idx}>{coin.title}</div>;
 		});
 	};
 
 	return (
-		<Box>
-			{renderTableRow()}
-			{/* <Table variant="simple">
-				<Thead>
-					<Tr>
-						<Th>No</Th>
-						<Th>Name</Th>
-						<Th>Price</Th>
-						<Th>24h</Th>
-						<Th>7d</Th>
-						<Th>Market Cap</Th>
-						<Th>Volumn</Th>
-						<Th>Last 7 Days</Th>
-						<Th>Action</Th>
-					</Tr>
-				</Thead>
-				<Tbody>{renderTableRow()}</Tbody>
-			</Table> */}
-		</Box>
+		<>
+			<Box>
+				<Table variant="simple">
+					<Thead>
+						<Tr>
+							<Th textAlign="center">No</Th>
+							<Th textAlign="center">Name</Th>
+							<Th textAlign="center">Price</Th>
+							<Th textAlign="center">24h</Th>
+							<Th textAlign="center">7d</Th>
+							<Th textAlign="center">Market Cap</Th>
+							<Th textAlign="center">Volumn</Th>
+							<Th textAlign="center">Last 7 Days</Th>
+							<Th>Action</Th>
+						</Tr>
+					</Thead>
+					<Tbody>{renderTableRow()}</Tbody>
+				</Table>
+			</Box>
+			<TransactionModal isOpen={isOpen} onClose={onClose} />
+		</>
 	);
 };
 

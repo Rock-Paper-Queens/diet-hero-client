@@ -1,6 +1,6 @@
-import { CoinType } from "./../type/coin";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { CoinType } from "./../type/coin";
 
 export const useGetCoinList = (pageNumber: number) => {
 	const [loading, setLoading] = useState(true);

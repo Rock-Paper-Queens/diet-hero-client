@@ -10,7 +10,7 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import AssetListItem from "./assetListItem";
-import TransactionModal from "../../../modules/modal/transactionModal";
+// import TransactionModal from "../../../modules/modal/transactionModal";
 
 const Asset = () => {
 	const data = [
@@ -29,7 +29,7 @@ const Asset = () => {
 		},
 	];
 
-	const { onOpen } = useDisclosure();
+	const { isOpen, onOpen } = useDisclosure();
 
 	const renderTableRow = () => {
 		return data.map((coin) => {
@@ -75,7 +75,7 @@ const Asset = () => {
 					</Tbody>
 				</Table>
 			</Box>
-			{/* <TransactionModal /> */}
+			{/* <TransactionModal isOpen={isOpen} /> */}
 		</>
 	);
 };

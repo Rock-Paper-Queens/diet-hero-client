@@ -12,8 +12,9 @@ import {
 } from "@chakra-ui/react";
 
 interface BasicModalProps {
-	// isOpen: boolean;
+	isOpen: boolean;
 	onOpen?: () => void;
+	onClose: () => void;
 	children: ReactElement;
 	modalTitle: string;
 	submitButtonName: string;
@@ -21,15 +22,14 @@ interface BasicModalProps {
 }
 
 const BasicModal: React.FC<BasicModalProps> = ({
-	// isOpen,
+	isOpen,
 	onOpen,
+	onClose,
 	children,
 	modalTitle,
 	submitButtonName,
 	onSubmit,
 }) => {
-	const { isOpen, onClose } = useDisclosure();
-
 	const handleSubmitButtonClick = () => {
 		onSubmit();
 		onClose();

@@ -23,10 +23,12 @@ import { numberWithCommas } from "../../../utils/utils";
 
 interface TransactionModalProps {
 	isOpen: boolean;
+	onClose: () => void;
 }
 
 const TransactionModal: React.FC<TransactionModalProps> = ({
 	isOpen,
+	onClose,
 }): ReactElement => {
 	const data = [
 		{
@@ -82,7 +84,8 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 
 	return (
 		<BasicModal
-			// isOpen={isOpen}
+			isOpen={isOpen}
+			onClose={onClose}
 			modalTitle={"Add Transaction"}
 			submitButtonName="Add Transaction"
 			onSubmit={() => console.log("submit")}
@@ -142,7 +145,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 							<Box bgColor="gray.100" p={3} mt={5} borderRadius="md">
 								<FormLabel>Total Spent</FormLabel>
 								<Text fontWeight="bold" fontSize="2rem">
-									{`$ ${numberWithCommas(Math.floor(totalSpent))}`}
+									{`$ ${numberWithCommas(+totalSpent.toFixed(2))}`}
 								</Text>
 							</Box>
 						</FormControl>
